@@ -1,5 +1,5 @@
 from keras import Model
-from keras.layers import Input, Dense, Conv2D, Conv2DTranspose, LeakyReLU, Dropout, Flatten
+from keras.layers import Input, Dense, Conv2D, LeakyReLU, Dropout, Flatten
 from keras.optimizers import Adam
 
 def create_discriminator(input_shape):
