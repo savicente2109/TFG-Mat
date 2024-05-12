@@ -3,6 +3,7 @@ from keras.optimizers import Adam
 from discriminator import *
 from generator import *
 import numpy as np
+import matplotlib.pyplot as plt
 
 def create_gan(input_shape, latent_dim):
 
@@ -14,7 +15,7 @@ def create_gan(input_shape, latent_dim):
     model.add(generator)
     model.add(discriminator)
 
-    opt = Adam(lr=0.0002, beta_1=0.5)
+    opt = Adam(learning_rate=0.0002, beta_1=0.5)
     model.compile(loss='binary_crossentropy', optimizer=opt)
 
     return model, generator, discriminator
@@ -28,6 +29,22 @@ def generate_real_samples(dataset, n_samples):
     y = np.ones((n_samples, 1))
     return X, y
 
+def save_plot(examples, epoch, n=7):
+    # scale from [-1,1] to [0,1]
+    examples = (examples + 1) / 2.0
+    # plot images
+    for i in range(n * n):
+        # define subplot
+        plt.subplot(n, n, 1 + i)
+        # turn off axis
+        plt.axis('off')
+        # plot raw pixel data
+        plt.imshow(examples[i])
+    # save plot to file
+    filename = 'generated_plot_e%03d.png' % (epoch+1)
+    plt.savefig(filename)
+    plt.close()
+
 def summarize_performance(epoch, generator, discriminator, dataset, latent_dim, n_samples=150):
     # prepare real samples
     X_real, y_real = generate_real_samples(dataset, n_samples)
@@ -40,7 +57,7 @@ def summarize_performance(epoch, generator, discriminator, dataset, latent_dim, 
     # summarize discriminator performance
     print('>Accuracy real: %.0f%%, fake: %.0f%%' % (acc_real*100, acc_fake*100))
     # save plot
-    keras.utils.vis_utils.save_plot(x_fake, epoch)
+    save_plot(x_fake, epoch)
     # save the generator model tile file
     filename = 'generator_model_%03d.h5' % (epoch+1)
     generator.save(filename)
@@ -72,3 +89,4 @@ def train_gan(gan, generator, discriminator, dataset, latent_dim, n_epochs=200, 
         # evaluate the model performance, sometimes
         if (i+1) % 10 == 0:
             summarize_performance(i, generator, discriminator, dataset, latent_dim)
+        #summarize_performance(i, generator, discriminator, dataset, latent_dim)

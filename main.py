@@ -14,7 +14,7 @@ def load_real_samples():
 LATENT_DIM = 100
 
 dataset = load_real_samples()
-gan, generator, discriminator = create_gan(input_shape=dataset[0].shape(), latent_dim=LATENT_DIM)
+gan, generator, discriminator = create_gan(input_shape=dataset[0].shape, latent_dim=LATENT_DIM)
 
 # train model
-train_gan(gan, generator, discriminator, dataset, LATENT_DIM)
+train_gan(gan, generator, discriminator, dataset, LATENT_DIM, n_epochs=50)
