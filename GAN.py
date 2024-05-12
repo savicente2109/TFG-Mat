@@ -41,7 +41,7 @@ def save_plot(examples, epoch, n=7):
         # plot raw pixel data
         plt.imshow(examples[i])
     # save plot to file
-    filename = 'generated_plot_e%03d.png' % (epoch+1)
+    filename = '.\generated_images\generated_plot_e%03d.png' % (epoch+1)
     plt.savefig(filename)
     plt.close()
 
@@ -59,7 +59,7 @@ def summarize_performance(epoch, generator, discriminator, dataset, latent_dim, 
     # save plot
     save_plot(x_fake, epoch)
     # save the generator model tile file
-    filename = 'generator_model_%03d.h5' % (epoch+1)
+    filename = '.\generator_models\generator_model_%03d.h5' % (epoch+1)
     generator.save(filename)
 
 def train_gan(gan, generator, discriminator, dataset, latent_dim, n_epochs=200, n_batch=128):
@@ -87,6 +87,6 @@ def train_gan(gan, generator, discriminator, dataset, latent_dim, n_epochs=200, 
             print('>%d, %d/%d, d1=%.3f, d2=%.3f g=%.3f' %
             (i+1, j+1, bat_per_epo, d_loss1, d_loss2, g_loss))
         # evaluate the model performance, sometimes
-        if (i+1) % 10 == 0:
-            summarize_performance(i, generator, discriminator, dataset, latent_dim)
-        #summarize_performance(i, generator, discriminator, dataset, latent_dim)
+        #if (i+1) % 10 == 0:
+            #summarize_performance(i, generator, discriminator, dataset, latent_dim)
+        summarize_performance(i, generator, discriminator, dataset, latent_dim)
