@@ -88,6 +88,6 @@ def train_gan(gan, generator, discriminator, dataset, latent_dim, n_epochs=200, 
             print('>%d, %d/%d, d1=%.3f, d2=%.3f g=%.3f' %
             (i+1, j+1, bat_per_epo, d_loss1, d_loss2, g_loss))
         # evaluate the model performance, sometimes
-        #if (i+1) % 10 == 0:
-            #summarize_performance(i, generator, discriminator, dataset, latent_dim)
-        summarize_performance(i, generator, discriminator, dataset, latent_dim)
+        if (i+1) % 10 == 0:
+            summarize_performance(i, generator, discriminator, dataset, latent_dim)
+        #summarize_performance(i, generator, discriminator, dataset, latent_dim)

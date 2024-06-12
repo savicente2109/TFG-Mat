@@ -13,8 +13,11 @@ def load_real_samples():
 # size of the latent space
 LATENT_DIM = 100
 
+# number of epochs
+NUM_EPOCHS = 200
+
 dataset = load_real_samples()
 gan, generator, discriminator = create_gan(input_shape=dataset[0].shape, latent_dim=LATENT_DIM)
 
 # train model
-train_gan(gan, generator, discriminator, dataset, LATENT_DIM, n_epochs=1)
+train_gan(gan, generator, discriminator, dataset, LATENT_DIM, n_epochs=NUM_EPOCHS)
