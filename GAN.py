@@ -41,6 +41,7 @@ def save_plot(examples, epoch, n=7):
         # plot raw pixel data
         plt.imshow(examples[i])
     # save plot to file
+    print("oye")
     filename = '.\generated_images\generated_plot_e%03d.png' % (epoch+1)
     plt.savefig(filename)
     plt.close()
