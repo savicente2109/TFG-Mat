@@ -8,40 +8,43 @@ import matplotlib.pyplot as plt
 def create_gan(input_shape, latent_dim):
 
     discriminator = create_discriminator((32, 32, 3))
+
+    # configuramos el discriminador como NO ENTRENABLE:
     discriminator.trainable = False
+
     generator = create_generator(latent_dim)
 
+    # modelo secuencial generador + discriminador
     model = Sequential(name="GAN_model")
     model.add(generator)
     model.add(discriminator)
 
     opt = Adam(learning_rate=0.0002, beta_1=0.5)
+
+    # compilamos el modelo
+    # (la red generadora no estaba compilada)
     model.compile(loss='binary_crossentropy', optimizer=opt)
 
     return model, generator, discriminator
 
 def generate_real_samples(dataset, n_samples):
-    # choose random instances
+    # se eligen elementos aleatoriamente del dataset
     ix = np.random.randint(0, dataset.shape[0], n_samples)
-    # retrieve selected images
     X = dataset[ix]
-    # generate 'real' class labels (1)
+    # se etiquetan como "real" (etiqueta = 1)
     y = np.ones((n_samples, 1))
     return X, y
 
 def save_plot(examples, epoch, n=7):
-    # scale from [-1,1] to [0,1]
+    # escalamos las imágenes de [-1,1] a [0,1]
     examples = (examples + 1) / 2.0
-    # plot images
+    # graficamos las imágenes en una cuadrícula n x n
     for i in range(n * n):
-        # define subplot
         plt.subplot(n, n, 1 + i)
-        # turn off axis
         plt.axis('off')
-        # plot raw pixel data
         plt.imshow(examples[i])
-    # save plot to file
-    print("oye")
+    # aquí se introduce el nombre del fichero en el que deseamos
+    # guardar las imágenes
     filename = '.\generated_images\generated_plot_e%03d.png' % (epoch+1)
     plt.savefig(filename)
     plt.close()
@@ -87,7 +90,10 @@ def train_gan(gan, generator, discriminator, dataset, latent_dim, n_epochs=200, 
             # summarize loss on this batch
             print('>%d, %d/%d, d1=%.3f, d2=%.3f g=%.3f' %
             (i+1, j+1, bat_per_epo, d_loss1, d_loss2, g_loss))
-        # evaluate the model performance, sometimes
+        # llamamos a summarize_performance cada 10 epochs,
+        # esto se puede modificar aquí
         if (i+1) % 10 == 0:
             summarize_performance(i, generator, discriminator, dataset, latent_dim)
+        # descomentar la línea siguiente (y comentar la anterior)
+        # si se desea guardar las imágenes tras cada epoch:
         #summarize_performance(i, generator, discriminator, dataset, latent_dim)
