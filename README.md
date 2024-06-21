@@ -11,6 +11,6 @@ El código de la red está distribuido en los ficheros `generator.py`, `discrimi
 
 ## Referencias
 
-Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville y Yoshua Bengio: Generative Adversarial Networks. 2014. https://arxiv.org/pdf/1406.2661.
+Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville y Yoshua Bengio. (2014). Generative Adversarial Networks. https://arxiv.org/pdf/1406.2661.
 
-Jason Brownlee. _Generative Adversarial Networks with Python: Deep Learning Generative Models for Image Synthesis and Image Translation._ Machine Learning Mastery. 2019.
+Jason Brownlee. (2019). _Generative Adversarial Networks with Python: Deep Learning Generative Models for Image Synthesis and Image Translation._ Machine Learning Mastery.
